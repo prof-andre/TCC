@@ -6,7 +6,9 @@ from pathlib import Path
 import os
 
 def trans_csv(path):
-#Recebe o caminho do arquivo csv e retorna uma array do tipo string. Leitura do arquivo csv com os dados das escolas. Transforma a coluna COD_ESC em uma unida Array do tipo string.
+'''Recebe o caminho do arquivo csv e retorna uma array do tipo string. 
+Leitura do arquivo csv com os dados das escolas. Transforma a coluna 
+COD_ESC em uma unida Array do tipo string.'''
 
     data = pd.read_csv(path)
     cod_n = np.array(data['COD_ESC'])
@@ -20,7 +22,8 @@ def trans_csv(path):
     return cod_s
 
 def download_pdf(ano, COD_ESC):
-#Recebe ano como inteiro e COD_ESC como string para determinar o  endereço do arquivo e definição do nome para ser salvo. Retorna o nome do arquivo.
+'''Recebe ano como inteiro e COD_ESC como string para determinar o  endereço 
+do arquivo e definição do nome para ser salvo. Retorna o nome do arquivo.'''
 
     ano = str(ano)
     url = 'http://idesp.edunet.sp.gov.br/arquivos' + ano + '/' + COD_ESC + '.pdf'
@@ -33,7 +36,8 @@ def download_pdf(ano, COD_ESC):
     return end_pdf
 
 def download_pdf_ano(ano, path):
-#Faz o download de todos os aquivos do ano informado, verifica a se há erro na escrita de cada arquivo e exclui os arquivos errados.
+'''Faz o download de todos os aquivos do ano informado, 
+verifica a se há erro na escrita de cada arquivo e exclui os arquivos errados.'''
 
     end_V = []
     end_F = []
@@ -57,7 +61,7 @@ def download_pdf_ano(ano, path):
     return end_V
 
 def le_pdf(path):
-#Recebe o caminho do arquivo pdf e retorna um dict(key=Nº, value=conteúdo da página).
+'''Recebe o caminho do arquivo pdf e retorna um dict(key=Nº, value=conteúdo da página).'''
 
     arq = open(path, "rb")
     pdf = p2.PdfFileReader(arq)
@@ -69,7 +73,7 @@ def le_pdf(path):
     return pg_pdf
 
 def PD_novo(pg_pdf, pg):
-#serve para 2013 para frente
+'''serve para 2013 para frente'''
     dados = []
     num_dados = []
     start = 0
@@ -87,7 +91,8 @@ def PD_novo(pg_pdf, pg):
     return num_dados
 
 def __array_dados(pg_pdf, pg):
-#recebe um dict com a leitura primaria do pdf e retorna uma array somente com os valores na forma de strings.
+'''recebe um dict com a leitura primaria do pdf e retorna uma array somente com os valores na forma de strings.'''
+
     dados = []
     start = 0
     first = True
@@ -102,11 +107,13 @@ def __array_dados(pg_pdf, pg):
     return dados
 
 def monta_banco(_array_, ANO, cod):
-#para 2018, 2017,2016_m_f,2015_m_f,2014_m_f no 3ano
+'''para 2018, 2017,2016_m_f,2015_m_f,2014_m_f no 3ano'''
+
     _array_num_f = []
     _array_num_m = []
     _array_ano = []
     _array_cod = []
+
 #IF -> Indicadores do Fundamental
 #IM -> Indicadores do Médio
 #COD -> Codigo da escola
